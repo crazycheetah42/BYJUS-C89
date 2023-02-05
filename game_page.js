@@ -1,6 +1,16 @@
 question_turn = "player1";
 answer_turn = "player2";
 
+player1_name = localStorage.getItem("player1_name")
+player2_name = localStorage.getItem("player2_name")
+document.getElementById("player1_name").innerHTML = player1_name;
+document.getElementById("player2_name").innerHTML = player2_name;
+document.getElementById("player1_score").innerHTML = 0;
+document.getElementById("player2_score").innerHTML = 0;
+
+player1_score = localStorage.getItem("player1_score")
+player2_score = localStorage.getItem("player2_score")
+
 function send()
 {
     number1 = document.getElementById("number1").value;
@@ -19,17 +29,25 @@ function send()
 function check()
 {
     get_answer = document.getElementById("input_check_box").value;
-    if (get_answer == actual_answer)
+    answer = get_answer.toLowerCase();
+    console.log("Answer in lower case: " + answer);
+    if (answer == actual_answer)
     {
         if (answer_turn == "player1")
         {
-            update_player1_score = player1_score + 1;
-            document.getElementById("player1_score").innerHTML = update_player1_score;
+            player1_score = player1_score + 1;
+            document.getElementById("player1_name").innerHTML = player1_name;
+            document.getElementById("player1_score").innerHTML = player1_score;
+            document.getElementById("player2_name").innerHTML = player2_name;
+            document.getElementById("player2_score").innerHTML = player2_score;
         }
         else
         {
-            update_player2_score = player2_score + 1;
-            document.getElementById("player2_score").innerHTML = update_player2_score;
+            player2_score = player2_score + 1;
+            document.getElementById("player1_name").innerHTML = player1_name;
+            document.getElementById("player1_score").innerHTML = player1_score;
+            document.getElementById("player2_name").innerHTML = player2_name;
+            document.getElementById("player2_score").innerHTML = player2_score;
         }
     }
     if (question_turn == "player1")
@@ -37,7 +55,7 @@ function check()
         question_turn = "player2";
         document.getElementById("player_question").innerHTML = "Question Turn - " + player2_name;
     }
-    else
+    else 
     {
         question_turn = "player1";
         document.getElementById("player_question").innerHTML = "Question Turn - " + player1_name;
@@ -52,4 +70,6 @@ function check()
         answer_turn = "player1";
         document.getElementById("player_answer").innerHTML = "Answer Turn - " + player1_name;
     }
+
+    document.getElementById("output").innerHTML = "";
 }
